@@ -1,6 +1,7 @@
 # Search App React
 
-<h3>Application that searches users when you type something.</h3>
+<h3>Application that searches users. The user interface was made in react and the API with FastApi.</h3>
+[Link to the back end repo](https://github.com/Enriquenf07/search-app-fastapi)
 
 <img src="https://github.com/Enriquenf07/search-app-fastapi/blob/main/F2jo6nHW8AA0LYZ.jpg" />
 
