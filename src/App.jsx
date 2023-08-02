@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai';
 
 
@@ -7,26 +7,24 @@ import { AiOutlineSearch } from 'react-icons/ai';
 function App() {
   const[usersSearched, setUsersSearched] = useState([])
   const[inputColor, setInputColor] = useState('bg-zinc-200')
-  const user1 = {'name': 'Enrique', 'id': '@Enrique'}
-  const user2 = {'name': 'Enzo', 'id': '@Enzo'}
-  const user3 = {'name': 'Bia', 'id': '@Bia'}
-  const user4 = {'name': 'Marcia', 'id': '@Marcia'}
-  const user5 = {'name': 'Alex', 'id': '@Alex'}
-  const user6 = {'name': 'Messi', 'id': '@Messi'}
-  const users = [user1, user2, user3, user4, user5, user6]
+  const [target, setTarget] = useState()
+
+
+  useEffect(() => {
+    setUsersSearched([])
+    if (target != '') {
+      fetch('http://localhost:8000/users/' + target)
+      .then(res => res.json())
+      .then(data => {
+        data.forEach(element => {
+          setUsersSearched((prev) => [...prev, element])
+        });
+      })
+    }
+  }, [target])
 
   const search = (event) => {
-    setUsersSearched([])
-    let flag = false
-    let userName = ''
-    let target = ''
-    const modifArray = users.forEach((i) => {
-      userName = i.name.toLowerCase()
-      target = event.target.value.toLowerCase()
-      flag = userName.includes(target) && event.target.value != ""
-      flag ? setUsersSearched((prev) => [...prev, i]) : null
-    })
-
+    setTarget(event.target.value)
   }
 
   return (
@@ -41,7 +39,7 @@ function App() {
             {usersSearched.map(data => (
               <div className='p-2'>
                 <p>{data.name}</p>
-                <p>{data.id}</p>
+                <p>{data.identifier}</p>
               </div>
               
             ))}
