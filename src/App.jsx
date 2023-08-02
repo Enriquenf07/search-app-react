@@ -18,8 +18,12 @@ function App() {
   const search = (event) => {
     setUsersSearched([])
     let flag = false
+    let userName = ''
+    let target = ''
     const modifArray = users.forEach((i) => {
-      flag = i.name.includes(event.target.value) && event.target.value != ""
+      userName = i.name.toLowerCase()
+      target = event.target.value.toLowerCase()
+      flag = userName.includes(target) && event.target.value != ""
       flag ? setUsersSearched((prev) => [...prev, i]) : null
     })
 
